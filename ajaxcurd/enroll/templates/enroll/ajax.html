@@ -1,0 +1,45 @@
+<script>
+$(document).ready(function(){
+$("#btnsave").click(function(){
+output = "";
+console.log("save")
+var name = $("#nameid").val()
+var email = $("#emailid").val()
+var password = $("#passwordid").val()
+if(name == ""){
+console.log("enter name")
+}else if(email == ""){
+console.log("enter email")
+}else if(password == ""){
+console.log("enter password")
+}else{
+//console.log(name)
+//console.log(email)
+//console.log(password)
+mydata = {name:name,email:email,password:password};
+$.ajax({
+url: "{% url "save" %}",
+method: "POST",
+data: mydata,
+success: function (data){
+console.log(data.status);
+if(data.status == 'Save'){
+//console.log(data.student_data);
+for(i=0; i<data.student_data.length; i++){
+output += "<tr><td>" + data.student_data[i].id + "</td><td>" + data.student_data[i].name + "</td><td>" + data.student_data[i].email + "</td><td>" + data.student_data[i].password +
+"</td><td>
+<input type='button' value="Edit"  class='btn my-1 btn-light d-inline btn-sm' data-sid="{{data.student_data[i].id}}" />
+<input  value="Delete" type='button' class='btn my-1 btn-danger d-inline btn-sm' data-sid="{{data.student_data[i].id}}" / >"
+}
+$(#tbody).html = output;
+$("form")[0].reset();
+}
+
+},
+})
+ }
+});
+
+});
+
+</script>

@@ -1,0 +1,75 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '\css\bootstrap.css' %}">
+
+      <!--custom-->
+       <link rel="stylesheet" href="{% static 'css\style.css' %}">
+
+    <title>Ajax </title>
+  </head>
+  <body class="bg-warning">
+  <div class="container my-5">
+      <h1 class="alert alert-dark text-center text-decoration-underline fs-1  text-capitalize text-dark fw-bold" role="alert">Django Ajax Based Curd Projects</h1>
+
+      <div class='row mx-4'>
+
+          <div class="col-sm-4">
+              <h4 class="bg-danger p-4 text-center fs-1  text-capitalize text-warning fw-bold"> Add /Update Student</h4>
+                <form  class='text-white fs-5 fw-bold' action="" method="post">
+                  {% csrf_token %}
+                  {{form.as_p}}
+                  <button class='btn btn-danger my-2' id="btnsave" type="submit"> Submit</button>
+                </form>
+          </div>
+
+          <div class="col-sm-7">
+              <h4 class="bg-danger p-4 text-center  fs-1  text-capitalize text-warning fw-bold"> Show Student Details</h4>
+              <table class="table table-hover  text-danger">
+
+                  <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Password</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody">
+                  {% for st in stu %}
+                    <tr>
+                        <td>{{st.id}}</td>
+                      <td >{{st.name}}</td>
+                      <td >{{st.email}}</td>
+                      <td>{{st.password}}</td>
+                        <td>
+                            <input data-sid="{{st.id}}" value="Edit" type="button" class="btn my-1 btn-light d-inline btn-sm" >
+                            <input data-sid="{{st.id}}"  value='Delete' type="button" class="btn my-1 btn-danger d-inline btn-sm" >
+
+                        </td>
+                    </tr>
+                   {% endfor %}
+                  </tbody>
+                </table>
+          </div>
+      </div>
+
+  </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{% static '\js\bootstrap.js' %}"></script>
+  <script src="{% static 'js\jquery.js' %}"></script>
+  <script src="{% static 'js\popper.js' %}"></script>
+
+   {% include "enroll/ajax.html" %}
+  </body>
+</html>
